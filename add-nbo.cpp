@@ -19,15 +19,13 @@ int main(int argc, char *argv[]) {
 	fread(&input1, sizeof(uint32_t), 1, fp1);
 	fread(&input2, sizeof(uint32_t), 1, fp2);
 	
-	//input1 = (uint32_t)buf1
 	uint64_t result = 0;
 	
-	//printf("0x%X\n", buf1);
-	
-	printf("input1 is : %u\n", ntohl(input1));
-	printf("input2 is : %u\n", ntohl(input2));
+	printf("%s Data is : %u\n", argv[1], ntohl(input1));
+	printf("%s Data is : %u\n", argv[2], ntohl(input2));
 
-	
+	result = (uint64_t)(ntohl(input1) + ntohl(input2));	
 
+	printf("Result : %d\n", result);
 	return 0;
 }
