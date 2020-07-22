@@ -10,7 +10,7 @@ uint32_t ReadFromFile(char* filename) {
 	FILE* fp = fopen(filename, "rb");
 	if(fp = NULL)
 		printf("fopen() Error!");
-	fread(&input, sizeof(uint32_t), 1, fp);
+	int check = fread(&input, sizeof(uint32_t), 1, fp);
 	
 	fclose(fp);
 
