@@ -4,28 +4,36 @@
 #include <string.h>
 #include <netinet/in.h>
 
+uint32_t ReadFromFile(char* filename) {
+	uint32_t input = 0x0;
+
+	FILE* fp = fopen(filename, "rb");
+	if(fp = NULL)
+		printf("fopen() Error!");
+	fread(&input, sizeof(uint32_t), 1, fp);
+	
+	fclose(fp);
+
+	return ntohl(input);
+}
+
 int main(int argc, char *argv[]) {
+
+	if(argc != 3) {
+		printf("Usage : %s <filename1> <filename2>", argv[0]);
+	}
+
+	uint32_t input1 = ReadFromFile(argv[1]);
+	uint32_t input2 = ReadFromFile(argv[2]);
 	
-	FILE *fp1 = fopen(argv[1], "rb");
-	FILE *fp2 = fopen(argv[2], "rb");
-
-	char buf1[4] = {'\0', };
-	char buf2[4] = {'\0', };
-
-
-	uint32_t input1 = 0x0;
-	uint32_t input2 = 0x0;
-
-	fread(&input1, sizeof(uint32_t), 1, fp1);
-	fread(&input2, sizeof(uint32_t), 1, fp2);
+	uint64_t result = 0x0;
 	
-	uint64_t result = 0;
-	
-	printf("%s Data is : %u\n", argv[1], ntohl(input1));
-	printf("%s Data is : %u\n", argv[2], ntohl(input2));
+	printf("%s Data is : %u\n", argv[1], input1);
+	printf("%s Data is : %u\n", argv[2], input2);
 
-	result = (uint64_t)(ntohl(input1) + ntohl(input2));	
+	result = (uint64_t)input1 + input2;	
 
-	printf("Result : %d\n", result);
+	printf("Result : %lu\n", result);
+
 	return 0;
 }
